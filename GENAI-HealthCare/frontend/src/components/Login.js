@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-const Login = ({ onLogin }) => {
+import API_BASE_URL from '../config'; = ({ onLogin }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
@@ -16,7 +15,7 @@ const Login = ({ onLogin }) => {
     
     try {
       const endpoint = isLogin ? '/login' : '/register';
-      const response = await fetch(`http://localhost:8080/api${endpoint}`, {
+      const response = await fetch(`${API_BASE_URL}/api${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

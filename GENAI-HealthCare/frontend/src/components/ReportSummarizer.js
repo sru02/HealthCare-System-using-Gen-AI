@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 
 const ReportSummarizer = () => {
   const [patientName, setPatientName] = useState('');
@@ -25,7 +26,7 @@ const ReportSummarizer = () => {
       const formDataFile = new FormData();
       formDataFile.append('file', selectedFile);
       formDataFile.append('patientName', patientName);
-      const result = await axios.post('http://localhost:8080/api/summarize-report-file', formDataFile, {
+      const result = await axios.post(`${API_BASE_URL}/api/summarize-report-file`, formDataFile, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       setSummary(result.data.response);
@@ -43,7 +44,7 @@ const ReportSummarizer = () => {
     setQuestion('');
     setQaLoading(true);
     try {
-      const result = await axios.post('http://localhost:8080/api/ask-report', {
+      const result = await axios.post(`${API_BASE_URL}/api/ask-report`, {
         question: userQ,
         reportContent: summary,
         patientName
@@ -60,7 +61,7 @@ const ReportSummarizer = () => {
     setPastLoading(true);
     setShowPast(true);
     try {
-      const result = await axios.get(`http://localhost:8080/api/report-history/${patientName}`);
+      const result = await axios.get(`${API_BASE_URL}/api/report-history/${patientName}`);
       setPastReports(result.data.data || []);
     } catch {
       setPastReports([]);

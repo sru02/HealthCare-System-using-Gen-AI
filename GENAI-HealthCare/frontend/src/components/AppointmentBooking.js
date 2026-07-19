@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config';
 
 const AppointmentBooking = ({ user = {} }) => {
   const [formData, setFormData] = useState({
@@ -53,7 +54,7 @@ const AppointmentBooking = ({ user = {} }) => {
         return;
       }
       
-      const response = await fetch('http://localhost:8080/api/appointments', {
+      const response = await fetch(`${API_BASE_URL}/api/appointments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(bookingData)
@@ -99,7 +100,7 @@ const AppointmentBooking = ({ user = {} }) => {
     if (!window.confirm('Are you sure you want to cancel this appointment?')) return;
     
     try {
-      const response = await fetch(`http://localhost:8080/api/appointments/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/appointments/${id}`, {
         method: 'DELETE'
       });
       
@@ -118,7 +119,7 @@ const AppointmentBooking = ({ user = {} }) => {
     setLoading(true);
     
     try {
-      const response = await fetch(`http://localhost:8080/api/appointments/${editingId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/appointments/${editingId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -148,7 +149,7 @@ const AppointmentBooking = ({ user = {} }) => {
   const loadAppointments = async () => {
     if (user?.email) {
       try {
-        const response = await fetch(`http://localhost:8080/api/appointments/${user.email}`);
+        const response = await fetch(`${API_BASE_URL}/api/appointments/${user.email}`);
         const result = await response.json();
         if (result.success) {
           setAppointments(result.data || []);

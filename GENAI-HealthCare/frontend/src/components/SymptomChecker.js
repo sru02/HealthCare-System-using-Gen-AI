@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 
 const RiskGauge = ({ score }) => {
   const clampedScore = Math.min(100, Math.max(0, score));
@@ -51,7 +52,7 @@ const SymptomChecker = () => {
     setRiskScore(null);
     setFollowUpQuestions([]);
     try {
-      const result = await axios.post('http://localhost:8080/api/symptoms', formData);
+      const result = await axios.post(`${API_BASE_URL}/api/symptoms`, formData);
       const text = result.data.response;
       setResponse(text);
       setRiskScore(parseRiskScore(text));
@@ -66,7 +67,7 @@ const SymptomChecker = () => {
     setLoading(true);
     setFollowUpQuestions([]);
     try {
-      const result = await axios.post('http://localhost:8080/api/symptoms', {
+      const result = await axios.post(`${API_BASE_URL}/api/symptoms`, {
         ...formData,
         symptoms: `${formData.symptoms}. Additional context: ${question} - Yes`
       });

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config';
 
 const MedicalRequirements = ({ user = {} }) => {
   const [formData, setFormData] = useState({
@@ -45,7 +46,7 @@ const MedicalRequirements = ({ user = {} }) => {
         userEmail: user?.email || ''
       };
       
-      const response = await fetch('http://localhost:8080/api/medical-requirements', {
+      const response = await fetch(`${API_BASE_URL}/api/medical-requirements`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requirementData)
@@ -74,7 +75,7 @@ const MedicalRequirements = ({ user = {} }) => {
   const loadRequirements = async () => {
     if (user?.email) {
       try {
-        const response = await fetch(`http://localhost:8080/api/medical-requirements/${user.email}`);
+        const response = await fetch(`${API_BASE_URL}/api/medical-requirements/${user.email}`);
         const result = await response.json();
         if (result.success) {
           setRequirements(result.data || []);

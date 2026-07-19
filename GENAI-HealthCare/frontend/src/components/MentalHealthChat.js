@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 
 const MentalHealthChat = () => {
   const [messages, setMessages] = useState([]);
@@ -41,7 +42,7 @@ const MentalHealthChat = () => {
     setCurrentMessage('');
 
     try {
-      const result = await axios.post('http://localhost:8080/api/mental-health/session', {
+      const result = await axios.post(`${API_BASE_URL}/api/mental-health/session`, {
         message: currentMessage,
         mood: mood,
         history: messages.map(m => ({ type: m.type, content: m.content }))

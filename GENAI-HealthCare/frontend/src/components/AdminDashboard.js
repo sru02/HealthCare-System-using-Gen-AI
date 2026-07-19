@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('bookings');
@@ -14,7 +15,7 @@ const AdminDashboard = () => {
   const loadBookings = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/api/admin/bookings');
+      const response = await fetch(`${API_BASE_URL}/api/admin/bookings`);
       const result = await response.json();
       if (result.success) {
         setBookings(result.data || []);
@@ -28,7 +29,7 @@ const AdminDashboard = () => {
   const loadUsers = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/api/admin/users');
+      const response = await fetch(`${API_BASE_URL}/api/admin/users`);
       const result = await response.json();
       if (result.success) {
         setUsers(result.data || []);
@@ -42,7 +43,7 @@ const AdminDashboard = () => {
   const loadRequirements = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/api/admin/requirements');
+      const response = await fetch(`${API_BASE_URL}/api/admin/requirements`);
       const result = await response.json();
       if (result.success) {
         setRequirements(result.data || []);
@@ -56,7 +57,7 @@ const AdminDashboard = () => {
   const loadDoctors = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/api/admin/doctors');
+      const response = await fetch(`${API_BASE_URL}/api/admin/doctors`);
       const result = await response.json();
       if (result.success) {
         setDoctors(result.data || []);
@@ -70,7 +71,7 @@ const AdminDashboard = () => {
   const loadPatients = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/api/admin/patients');
+      const response = await fetch(`${API_BASE_URL}/api/admin/patients`);
       const result = await response.json();
       if (result.success) {
         setPatients(result.data || []);
@@ -87,7 +88,7 @@ const AdminDashboard = () => {
     if (!window.confirm('Cancel this booking?')) return;
     
     try {
-      const response = await fetch(`http://localhost:8080/api/admin/bookings/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin/bookings/${id}`, {
         method: 'DELETE'
       });
       
@@ -103,7 +104,7 @@ const AdminDashboard = () => {
   const addDoctor = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/api/admin/doctors', {
+      const response = await fetch(`${API_BASE_URL}/api/admin/doctors`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(doctorForm)
@@ -124,7 +125,7 @@ const AdminDashboard = () => {
     if (!window.confirm('Remove this doctor?')) return;
     
     try {
-      const response = await fetch(`http://localhost:8080/api/admin/doctors/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin/doctors/${id}`, {
         method: 'DELETE'
       });
       
@@ -141,7 +142,7 @@ const AdminDashboard = () => {
     if (!window.confirm('Mark this requirement as issued?')) return;
     
     try {
-      const response = await fetch(`http://localhost:8080/api/admin/requirements/${id}/issue`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin/requirements/${id}/issue`, {
         method: 'PUT'
       });
       
