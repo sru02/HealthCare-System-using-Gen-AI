@@ -1,0 +1,8 @@
+# Ignore frontend from language statistics
+GENAI-HealthCare/frontend/src/** linguist-detectable=false
+GENAI-HealthCare/frontend/public/** linguist-detectable=false
+GENAI-HealthCare/frontend/package.json linguist-detectable=false
+GENAI-HealthCare/frontend/package-lock.json linguist-detectable=false
+
+# Mark Java as the primary language
+GENAI-HealthCare/backend/src/**/*.java linguist-language=Java
