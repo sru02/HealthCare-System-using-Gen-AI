@@ -1,0 +1,51 @@
+# ===========================
+# SECRETS - NEVER COMMIT THESE
+# ===========================
+backend/src/main/resources/application.properties
+backend/src/main/resources/application-dev.properties
+
+# ===========================
+# Backend Build Artifacts
+# ===========================
+backend/target/
+backend/bin/
+backend/.settings/
+backend/.classpath
+backend/.project
+*.class
+*.jar
+*.war
+*.ear
+
+# ===========================
+# Frontend
+# ===========================
+frontend/node_modules/
+frontend/build/
+frontend/.env
+frontend/.env.local
+frontend/.env.production
+
+# ===========================
+# IDE Files
+# ===========================
+.idea/
+*.iml
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# ===========================
+# OS Files
+# ===========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===========================
+# Logs
+# ===========================
+*.log
+logs/

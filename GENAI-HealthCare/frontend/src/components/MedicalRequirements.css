@@ -1,0 +1,147 @@
+.medical-requirements {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.requirement-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.requirement-form h2 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.requirement-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.requirement-form input,
+.requirement-form select,
+.requirement-form textarea {
+  padding: 0.75rem;
+  border: 2px solid #e1e8ed;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.requirement-form input:focus,
+.requirement-form select:focus,
+.requirement-form textarea:focus {
+  outline: none;
+  border-color: #e74c3c;
+}
+
+.requirement-form button {
+  background: #e74c3c;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.requirement-form button:hover:not(:disabled) {
+  background: #c0392b;
+}
+
+.requirement-form button:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.message {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  text-align: center;
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.requirements-list {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.requirements-list h3 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.requirement-card {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border-left: 4px solid #e74c3c;
+}
+
+.requirement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.requirement-badges {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.priority-badge,
+.status-badge {
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.requirement-description {
+  color: #555;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.requirement-dates {
+  display: flex;
+  justify-content: space-between;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .medical-requirements {
+    grid-template-columns: 1fr;
+  }
+  
+  .requirement-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .requirement-dates {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}

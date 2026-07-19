@@ -1,0 +1,41 @@
+# Copy this file to application.properties and fill in your values
+# cp application.properties.example application.properties
+
+# ===========================
+# Database Configuration
+# ===========================
+spring.datasource.url=jdbc:mysql://localhost:3306/healthcare_db?createDatabaseIfNotExist=true
+spring.datasource.username=<your_db_username>
+spring.datasource.password=<your_db_password>
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# ===========================
+# Gemini AI Configuration
+# Get your key at: https://aistudio.google.com/app/apikey
+# ===========================
+gemini.api.url=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent
+gemini.api.key=<your_gemini_api_key>
+
+# ===========================
+# JPA / Hibernate
+# ===========================
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+
+# ===========================
+# Server
+# ===========================
+server.port=8080
+
+# ===========================
+# Email Configuration (Gmail SMTP)
+# Use an App Password, not your real password
+# Guide: https://support.google.com/accounts/answer/185833
+# ===========================
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=<your_gmail_address>
+spring.mail.password=<your_gmail_app_password>
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
