@@ -26,52 +26,53 @@
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                        USER BROWSER                             │
-│                                                                 │
-│   ┌─────────────────────────────────────────────────────────┐   │
-│   │              React Frontend (Port 3000)                 │   │
-│   │                                                         │   │
-│   │  ┌──────────────┐  ┌──────────────┐  ┌─────────────┐  │   │
-│   │  │   Symptom    │  │Mental Health │  │   Report    │  │   │
-│   │  │   Checker    │  │     Chat     │  │ Summarizer  │  │   │
-│   │  └──────────────┘  └──────────────┘  └─────────────┘  │   │
-│   │  ┌──────────────┐  ┌──────────────┐  ┌─────────────┐  │   │
-│   │  │ Appointment  │  │   Medical    │  │    Admin    │  │   │
-│   │  │   Booking    │  │Requirements  │  │  Dashboard  │  │   │
-│   │  └──────────────┘  └──────────────┘  └─────────────┘  │   │
-│   └─────────────────────────┬───────────────────────────────┘   │
-│                             │ REST API (Axios)                   │
-└─────────────────────────────┼───────────────────────────────────┘
-                              │
-┌─────────────────────────────▼───────────────────────────────────┐
-│              Spring Boot Backend (Port 8080)                    │
-│                                                                 │
-│  ┌─────────────────┐   ┌──────────────────┐                    │
-│  │   Controllers   │   │    Services      │                    │
-│  │  HealthcareCtrl │──▶│  HealthcareSvc   │                    │
-│  └─────────────────┘   │  GeminiService   │──▶ Google Gemini   │
-│                        │  RAGService      │    2.5 Flash API   │
-│  ┌─────────────────┐   │  EmailService    │──▶ Gmail SMTP      │
-│  │  JPA Repository │   └──────────────────┘                    │
-│  │  Booking        │                                            │
-│  │  Doctor         │                                            │
-│  │  User           │                                            │
-│  │  MedicalReq     │                                            │
-│  └────────┬────────┘                                            │
-└───────────┼─────────────────────────────────────────────────────┘
-            │
-┌───────────▼─────────────────┐
-│     MySQL Database          │
-│     (healthcare_db)         │
-│                             │
-│  • users                    │
-│  • bookings                 │
-│  • doctors                  │
-│  • medical_requirements     │
-│  • report_summaries         │
-│  • knowledge_documents      │
-└─────────────────────────────┘
++------------------------------------------------------------------+
+|                         USER BROWSER                            |
+|                                                                  |
+|  +------------------------------------------------------------+  |
+|  |                React Frontend (Port 3000)                  |  |
+|  |                                                            |  |
+|  |  +--------------+  +--------------+  +---------------+    |  |
+|  |  |   Symptom    |  | Mental Health|  |    Report     |    |  |
+|  |  |   Checker    |  |     Chat     |  |  Summarizer   |    |  |
+|  |  +--------------+  +--------------+  +---------------+    |  |
+|  |                                                            |  |
+|  |  +--------------+  +--------------+  +---------------+    |  |
+|  |  | Appointment  |  |   Medical    |  |     Admin     |    |  |
+|  |  |   Booking    |  | Requirements |  |   Dashboard   |    |  |
+|  |  +--------------+  +--------------+  +---------------+    |  |
+|  +------------------------------+-----------------------------+  |
+|                                 |  REST API (Axios)              |
++-------------------------------- | --------------------------------+
+                                  |
++--------------------------------- v --------------------------------+
+|                  Spring Boot Backend (Port 8080)                   |
+|                                                                    |
+|  +-------------------+      +--------------------+                |
+|  |    Controllers    |      |      Services      |                |
+|  |  HealthcareCtrl   +----> |  HealthcareSvc     |                |
+|  +-------------------+      |  GeminiService     +---> Gemini AI  |
+|                             |  RAGService        |                |
+|  +-------------------+      |  EmailService      +---> Gmail SMTP |
+|  |   JPA Repository  |      +--------------------+                |
+|  |   Booking         |                                            |
+|  |   Doctor          |                                            |
+|  |   User            |                                            |
+|  |   MedicalReq      |                                            |
+|  +---------+---------+                                            |
++------------|-------------------------------------------------------+
+             |
++------------ v ------------------+
+|        MySQL Database           |
+|        (healthcare_db)          |
+|                                 |
+|   - users                       |
+|   - bookings                    |
+|   - doctors                     |
+|   - medical_requirements        |
+|   - report_summaries            |
+|   - knowledge_documents         |
++---------------------------------+
 ```
 
 ---
@@ -103,51 +104,6 @@
 
 ---
 
-## Deployment
-
-### Option 1 — Railway + Vercel (Recommended, Free)
-
-**Backend on Railway**
-
-1. Go to [railway.app](https://railway.app) → sign up with GitHub
-2. **New Project → Deploy from GitHub repo** → select this repo, set root to `backend`
-3. Add a database: **+ New → Database → MySQL**
-4. In **Variables**, add:
-   - `GEMINI_API_KEY` → your Gemini API key
-   - `MAIL_USERNAME` → your Gmail address
-   - `MAIL_PASSWORD` → your Gmail App Password
-5. Update `application.properties` to read from environment variables:
-```properties
-spring.datasource.url=${DATABASE_URL}
-spring.datasource.username=${MYSQLUSER}
-spring.datasource.password=${MYSQLPASSWORD}
-gemini.api.key=${GEMINI_API_KEY}
-spring.mail.username=${MAIL_USERNAME}
-spring.mail.password=${MAIL_PASSWORD}
-```
-6. Deploy — Railway gives you a URL like `https://your-app.railway.app`
-
-**Frontend on Vercel**
-
-1. Go to [vercel.com](https://vercel.com) → **New Project → Import** this repo
-2. Set **Root Directory** to `frontend`
-3. Add environment variable: `REACT_APP_API_URL` = your Railway backend URL
-4. Deploy — Vercel gives you a URL like `https://your-app.vercel.app`
-
----
-
-### Option 2 — AWS (Adds AWS Experience to Resume)
-
-| Service | Purpose |
-|---|---|
-| **Elastic Beanstalk** | Deploy Spring Boot JAR |
-| **Amazon RDS (MySQL)** | Managed MySQL database |
-| **AWS Amplify** | Deploy React frontend |
-| **Secrets Manager** | Store API keys securely |
-
-See [AWS Free Tier](https://aws.amazon.com/free/) for usage limits.
-
----
 
 ## Local Setup
 
@@ -230,6 +186,6 @@ This project is licensed under the MIT License — see [LICENSE](LICENSE) for de
 
 ## Author
 
-**Your Name**
-- GitHub: [@your-username](https://github.com/your-username)
-- LinkedIn: [your-linkedin](https://linkedin.com/in/your-linkedin)
+**Srushti N**
+- GitHub: https://github.com/sru02
+- LinkedIn: https://www.linkedin.com/in/srushtinatesh/
