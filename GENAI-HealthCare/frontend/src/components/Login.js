@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import API_BASE_URL from '../config'; = ({ onLogin }) => {
+import API_BASE_URL from '../config';
+
+const Login = ({ onLogin }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
