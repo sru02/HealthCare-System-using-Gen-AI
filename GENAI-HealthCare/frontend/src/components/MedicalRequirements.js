@@ -88,7 +88,7 @@ const MedicalRequirements = ({ user = {} }) => {
 
   useEffect(() => {
     loadRequirements();
-  }, [user]);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getPriorityColor = (priority) => {
     const priorityObj = priorities.find(p => p.value === priority);

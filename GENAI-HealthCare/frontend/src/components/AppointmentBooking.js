@@ -162,7 +162,7 @@ const AppointmentBooking = ({ user = {} }) => {
 
   useEffect(() => {
     loadAppointments();
-  }, [user]);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="flex gap-lg" style={{flexWrap: 'wrap'}}>
